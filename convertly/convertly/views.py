@@ -10,6 +10,7 @@ from PyPDF2 import PdfReader
 from docx import Document
 from PIL import Image  
 import xlwings as xw
+import packaging
 import os
 
 
