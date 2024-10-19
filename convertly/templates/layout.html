@@ -1,0 +1,65 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Convertly{% endblock %}</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-green-600 p-4 shadow-lg fixed top-0 left-0 right-0 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Left Side: Logo and Links -->
+            <div class="flex items-center space-x-6">
+                <!-- Logo -->
+                <a href="{% url 'home' %}" class="text-white text-xl font-bold">Convertly</a>
+                
+                <!-- Links -->
+                <a href="{% url 'home' %}" class="text-white hover:text-gray-200">Home</a>
+                <a href="{% url 'about' %}" class="text-white hover:text-gray-200">About</a>
+
+                <!-- Dropdown Menu for Document Converter -->
+                <div class="relative group">
+                    <button class="text-white focus:outline-none">Document Converter</button>
+                    <div class="absolute hidden group-hover:block bg-white text-black mt-2 py-2 w-48 shadow-lg rounded-lg">
+                        <a href="{% url 'get_document' 'pdf' 'docx' %}" class="block px-4 py-2 hover:bg-green-500 border-green-200">Convert PDF to DOCX</a>
+                        <a href="{% url 'get_document' 'docx' 'pdf' %}" class="block px-4 py-2 hover:bg-green-500">Convert DOCX to PDF</a>
+                        <a href="{% url 'get_document' 'txt' 'pdf' %}" class="block px-4 py-2 hover:bg-green-500">Convert TXT to PDF</a>
+                        <a href="{% url 'get_document' 'pdf' 'txt' %}" class="block px-4 py-2 hover:bg-green-500">Convert PDF to TXT</a>
+                        <a href="{% url 'get_document' 'xlsx' 'pdf' %}" class="block px-4 py-2 hover:bg-green-500">Convert EXCEL to PDF</a>
+                        <a href="{% url 'get_document' 'jpg' 'pdf' %}" class="block px-4 py-2 hover:bg-green-500">Convert JPG to PDF</a>
+                        <a href="{% url 'get_document' 'docx' 'txt' %}" class="block px-4 py-2 hover:bg-green-500">Convert DOCX to TXT</a>
+                        <a href="{% url 'get_document' 'txt' 'docx' %}" class="block px-4 py-2 hover:bg-green-500">Convert TXT to DOCX</a>
+                        <a href="{% url 'get_document' 'png' 'pdf' %}" class="block px-4 py-2 hover:bg-green-500">Convert PNG to PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Search Bar -->
+            <form method="GET" action="{% url "search" %}" class="flex items-center">
+                <input type="text" name="query" placeholder="Search..." class="px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring focus:ring-green-400">
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-r-md hover:bg-green-600">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto mt-16 flex-grow">
+        {% block content %}
+        <!-- Page-specific content will go here -->
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-green-600 text-white py-4 mt-16">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Convertly. All rights reserved.</p>
+            <p>Contact us: <a href="mailto:support@convertly.com" class="hover:underline">support@convertly.com</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
