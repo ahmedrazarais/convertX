@@ -10,7 +10,6 @@ from PyPDF2 import PdfReader
 from docx import Document
 from PIL import Image  
 import xlwings as xw
-import packaging
 import os
 
 
@@ -200,11 +199,16 @@ def convert_pdf_to_docx(original_file_path, converted_file_path):
 
 
 
-def convert_docx_to_pdf(original_file_path, converted_file_path):
-    """Convert DOCX to PDF."""
-    convert(original_file_path, converted_file_path)
+import pythoncom
+from win32com import client
 
-
+def convert_docx_to_pdf(input_path, output_path):
+    pythoncom.CoInitialize()  # Ensure COM is initialized
+    word = client.Dispatch("Word.Application")
+    doc = word.Documents.Open(input_path)
+    doc.SaveAs(output_path, FileFormat=17)  # 17 is the enum for PDF format
+    doc.Close()
+    word.Quit()
 
 
 
